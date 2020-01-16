@@ -119,6 +119,27 @@ app.get('/pokemon/:id/edit', (request, response) => {
 });
 
 
+app.get('/pokemon', (request,response) => {
+  //obj.pokemon.push(data);
+  jsonfile.readFile(FILE, (err, obj) => {
+    let allPokemon = [];
+    let listOfPokemon = obj.pokemon;
+    for (i = 0; i < listOfPokemon.length; i++) {
+      let currentPokemon = listOfPokemon[i].name;
+      allPokemon.push(currentPokemon);
+      //console.log(currentPokemon);
+    }
+
+    let data = {
+      name: allPokemon
+    }
+
+    response.render('all', data);
+  });
+});
+
+
+
 app.get('/pokemon/?', (request,response) => {
   const sortBy = request.query.sortby;
 
@@ -184,24 +205,6 @@ app.get('/pokemon/?', (request,response) => {
   });
 });
 
-app.get('/pokemon', (request,response) => {
-  //obj.pokemon.push(data);
-  jsonfile.readFile(FILE, (err, obj) => {
-    let allPokemon = [];
-    let listOfPokemon = obj.pokemon;
-    for (i = 0; i < listOfPokemon.length; i++) {
-      let currentPokemon = listOfPokemon[i].name;
-      allPokemon.push(currentPokemon);
-      //console.log(currentPokemon);
-    }
-
-    let data = {
-      name: allPokemon
-    }
-
-    response.render('all', data);
-  });
-});
 
 app.post('/pokemon', (request,response) => {
   let newPokemonName = request.body.name;
@@ -247,8 +250,8 @@ app.put('/pokemon/:id', (request,response) => {
   let newPokemonHeight = request.body.height;
   let newPokemonWeight = request.body.weight;
   let data = {
-    "id": newPokemonId,
-    "num": newPokemonNum,
+    "id": searchedId,
+    "num": searchedId,
     "name": newPokemonName,
     "img": newPokemonImgUrl,
     "height": newPokemonHeight,

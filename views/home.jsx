@@ -12,6 +12,7 @@ class PokemonPages extends React.Component {
             </select>
             <input style={{borderRadius: `5px`}} type="submit" value="Sort" />
           </form>
+          <button method="GET"><a href='/pokemon/'>Go to List of Pokemon</a></button>
         </body>
       </html>
     );
